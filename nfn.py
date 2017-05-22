@@ -12,26 +12,20 @@ class NeoFuzzyNeuron:
     full batch RPROP training with early stopping.
 
     Attributes
-        lags (int; list): if int, defines the maximum lag in the time series model;
-            if list, defines a set of exact lags
         n_rules (int): number of fuzzy inference rules in the neuron
-        train_size (float): fraction of time series points (from the beginning), 
-            used as a train set; the last ``1 - train_size`` points are used as a 
-            test set
-        n_epochs (int): number of training iteration
-        max_no_best (int): early stopping parameter
         uniform (bool): if True, the uniform grid of fuzzy partitions is used;
             if False, the input domain is partitioned by quantiles of the 
             unconditional time series distribution. Uniform grid is makes evaluation
             and training ~4.0x faster.
+        n_epochs (int): number of training iteration
+        max_no_best (int): early stopping parameter        
         write_log (bool): if True, training process (train/test MSE, time per epoch)
             is written into a ``log_`` field
     """
     
     def __init__(self, n_rules, uniform = True, 
-                 train_size = 0.75, n_epochs = 1000, max_no_best = 16, write_log = True):   
+                 n_epochs = 1000, max_no_best = 16, write_log = True):   
         self.n_rules  = n_rules       
-        self.train_size = train_size
         self.n_epochs = n_epochs
         self.max_no_best = max_no_best
         self.uniform = uniform
