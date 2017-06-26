@@ -24,7 +24,7 @@ def uniform_grid(X, n_rules):
     x_max = X.max(axis = 0)     
     step = (x_max - x_min) / n_rules
    
-    grid = np.vstack(np.linspace(a - h, b + h, n_rules + 3) 
+    grid = np.vstack(np.linspace(a - h, b + h, n_rules + 2) 
                      for a, b, h in zip(x_min, x_max, step))
     return grid.T
 
@@ -51,7 +51,7 @@ def density_grid(X, n_rules):
 
     grid = list()
     for i in range(X.shape[1]):
-        quantiles = np.percentile(X[:,i], q = np.linspace(0, 100, n_rules + 1))
+        quantiles = np.percentile(X[:,i], q = np.linspace(0, 100, n_rules))
         pad_left  = 2*quantiles[ 0] - quantiles[ 1]
         pad_right = 2*quantiles[-1] - quantiles[-2]        
         grid.append(np.hstack([pad_left, quantiles, pad_right]))
